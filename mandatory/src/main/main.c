@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:09 by kmumm             #+#    #+#             */
-/*   Updated: 2022/08/16 23:53:31 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/08/21 04:15:12 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, emulate_ctrl_c);
 	while (1)
@@ -59,7 +58,10 @@ int	main(int argc, char **argv, char **envp)
 		if (check_exit_eof(read))
 			break ;
 		if (ft_strlen(read) > 0)
+		{
+			exec_command(read, envp);
 			add_history(read);
+		}
 		free(read);
 	}
 	return (0);
