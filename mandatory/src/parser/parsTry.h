@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   parsTry.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/20 20:16:01 by kmumm             #+#    #+#             */
-/*   Updated: 2022/08/30 21:45:59 by smackere         ###   ########.fr       */
+/*   Created: 2022/08/30 21:47:34 by smackere          #+#    #+#             */
+/*   Updated: 2022/08/30 21:47:40 by smackere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#ifndef PARSTRY_H
+# define PARSTRY_H
 
-int	exec_command(char *read, char **envp)
-{
-	char	*cmd;
-	int		pid;
-	int		status;
+# include <unistd.h>
+# include "../../../libft/include/libft.h"
 
-	cmd = get_cmd(read, envp);
-	if (cmd == NULL)
-		return (0);
-	pid = fork();
-	if (pid == -1)
-		exit(0);
-	if (pid == 0)
-	{
-		execve(cmd, NULL, NULL);
-	}
-	waitpid(pid, &status, 0);
-	return (0);
-}
+#endif
