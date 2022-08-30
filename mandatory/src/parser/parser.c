@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/08/21 04:11:52 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/08/30 21:46:04 by smackere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 //int parse_args(char **argv)
 //{
-	
-//}
 
+//}
 
 //int parse_command(char *command)
 //{
-	
+
 //}
 
 //static void ps_error(char *error_string)
@@ -29,7 +28,7 @@
 //	exit(0);
 //}
 
-static char **get_path(char **envp)
+static char	**get_path(char **envp)
 {
 	char	**path;
 	int		i;
