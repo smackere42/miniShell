@@ -6,7 +6,7 @@
 /*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:49 by kmumm             #+#    #+#             */
-/*   Updated: 2022/08/30 21:45:47 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/01 03:13:14 by smackere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 # include <unistd.h>
 # include "../../../libft/include/libft.h"
 
-char	*get_cmd(char *cmd, char **envp);
+typedef struct s_command
+{
+	char	**fullcmd;
+	char	*cmd;
+	char	**args;
+	char	*cmd_path;
+}			t_command;
+
+t_command	*parse(char *cmd, char **envp);
+t_command	*parse_errors(int i, t_command *command);
 
 #endif
