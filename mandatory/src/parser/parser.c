@@ -6,7 +6,7 @@
 /*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/01 03:13:35 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/01 23:40:44 by smackere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_command	*parse(char *cmd, char **envp)
 	command->cmd_path = find_cmd_in_path(path, command->cmd);
 	if (!command->cmd_path)
 		return (parse_errors(4, command));
-	command->args = ++parsed;
+	command->args = parsed;
 	command->fullcmd = parsed;
 	return (command);
 }
