@@ -6,7 +6,7 @@
 /*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:16:01 by kmumm             #+#    #+#             */
-/*   Updated: 2022/08/30 21:45:59 by smackere         ###   ########.fr       */
+/*   Updated: 2022/08/31 06:23:28 by smackere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 int	exec_command(char *read, char **envp)
 {
-	char	*cmd;
-	int		pid;
-	int		status;
+	int			pid;
+	int			status;
+	t_command	*cmd;
 
-	cmd = get_cmd(read, envp);
+	cmd = parse(read, envp);
 	if (cmd == NULL)
 		return (0);
 	pid = fork();
 	if (pid == -1)
 		exit(0);
 	if (pid == 0)
-	{
-		execve(cmd, NULL, NULL);
-	}
+		execve(cmd->cmd_path, cmd->args, NULL);
 	waitpid(pid, &status, 0);
 	return (0);
 }

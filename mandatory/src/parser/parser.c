@@ -6,7 +6,7 @@
 /*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/08/30 21:46:04 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/01 03:13:35 by smackere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,28 @@ static char	*find_cmd_in_path(char **path, char *cmd)
 	return (NULL);
 }
 
-char	*get_cmd(char *cmd, char **envp)
+t_command	*parse(char *cmd, char **envp)
 {
-	char	**path;
-	char	*tmp_cmd;
-	char	*tmp;
+	char		**parsed;
+	t_command	*command;
+	char		**path;
 
+	command = (t_command *)malloc(sizeof(t_command));
+	if (!command)
+		return (parse_errors(0, command));
+	parsed = ft_split(cmd, ' ');
+	if (!parsed)
+		return (parse_errors(1, command));
 	path = get_path(envp);
 	if (!path)
-		return (NULL);
-	tmp_cmd = ft_strjoin("/", cmd);
-	if (!tmp_cmd)
-		return (NULL);
-	tmp = find_cmd_in_path(path, tmp_cmd);
-	if (!tmp)
-	{
-		return (NULL);
-	}
-	free(path);
-	free(tmp_cmd);
-	return (tmp);
+		return (parse_errors(2, command));
+	command->cmd = ft_strjoin("/", parsed[0]);
+	if (!command->cmd)
+		return (parse_errors(3, command));
+	command->cmd_path = find_cmd_in_path(path, command->cmd);
+	if (!command->cmd_path)
+		return (parse_errors(4, command));
+	command->args = ++parsed;
+	command->fullcmd = parsed;
+	return (command);
 }

@@ -6,7 +6,7 @@
 /*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:09 by kmumm             #+#    #+#             */
-/*   Updated: 2022/08/30 21:45:55 by smackere         ###   ########.fr       */
+/*   Updated: 2022/08/31 06:23:12 by smackere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_exit_eof(char *read)
 {
 	if (!read)
 	{
-		write(2, "exit\n", 5);
+		ft_putstr_fd("\033[1;31mexit\n\033[0m", 2);
 		return (1);
 	}
 	return (0);
