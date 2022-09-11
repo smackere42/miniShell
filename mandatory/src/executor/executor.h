@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:15:57 by kmumm             #+#    #+#             */
-/*   Updated: 2022/08/30 21:46:01 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/11 23:52:39 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define EXECUTOR_H
 
 # include "../parser/parser.h"
+# include "../main/main.h"
+# include "../easy_memory/easy_memory.h"
+# include "../../../libft/include/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>

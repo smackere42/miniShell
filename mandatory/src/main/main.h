@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/01 23:32:18 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/12 00:10:07 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,18 @@
 # include <readline/history.h>
 
 # include "../executor/executor.h"
+# include "../easy_memory/easy_memory.h"
+//# include "../easy_memory/easy_memory.h"
+
+typedef struct	s_context
+{
+	int pid;
+	struct s_pointers	*pointers;
+	struct t_list	*variables;
+} t_context;
+
+extern t_context *g_context;
+t_context *g_context;
+
 
 #endif
