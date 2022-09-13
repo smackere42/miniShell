@@ -2,6 +2,7 @@ NAME	= minishell
 DIRS	=	main \
 			executor \
 			parser \
+			easy_memory \
 
 LIBFT= ../libft/libft.a
 OBJ_DIR = obj

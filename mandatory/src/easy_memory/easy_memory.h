@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   easy_memory.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/20 20:16:01 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/12 00:17:40 by kmumm            ###   ########.fr       */
+/*   Created: 2022/09/02 02:25:53 by kmumm             #+#    #+#             */
+/*   Updated: 2022/09/11 23:55:51 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#ifndef FT_EASY_MEMORY_H
+# define FT_EASY_MEMORY_H
 
-int	exec_command(char *read, char **envp)
+# include "../../../libft/include/libft.h"
+# include "../main/main.h"
+# include <unistd.h>
+
+typedef struct	s_pointers
 {
-	int			pid;
-	int			status;
-	t_command	*cmd;
+	void				*pointer;
+	struct s_pointers	*next;
+} t_pointers;
 
-	cmd = parse(read, envp);
-	if (cmd == NULL)
-		return (0);
-	pid = fork();
-	g_context->pid = pid;
-	if (pid == -1)
-		exit(0);
-	if (pid == 0)
-	{
-		execve(cmd->cmd_path, cmd->args, NULL);
-	}
-	waitpid(pid, &status, 0);
-	return (0);
-}
+//extern t_pointers *g_pointers;
+//t_pointers *g_pointers;
+
+void	*easy_alloc(size_t size);
+void	easy_fall(void);
+void	easy_fone(void *ptr);
+void	easy_addp(void *ptr);
+
+
+
+#endif

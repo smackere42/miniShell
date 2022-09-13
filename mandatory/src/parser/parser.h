@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:49 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/01 23:33:29 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/12 00:09:18 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include "../../../libft/include/libft.h"
+# include "../../src/easy_memory/easy_memory.h"
 
 typedef struct s_command
 {
