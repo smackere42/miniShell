@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:14:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/11 23:58:05 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/19 22:47:52 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	easy_fone(void *ptr)
 	pointers = g_context->pointers;
 	previous = pointers;
 	temp = pointers;
-	while (temp->pointer != ptr && temp)
+	while (temp && temp->pointer != ptr)
 	{
 		previous = temp;
 		temp = temp->next;
