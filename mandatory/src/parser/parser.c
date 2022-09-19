@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/12 02:21:19 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/19 22:50:53 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,57 @@ int	is_variable(char *command)
 	return 1;
 }
 
+char *replace_variable(char *str)
+{
+	char	*result;
+	char	*temp;
+	char	*temp2;
+	t_list	*temp3;
+
+	result = ft_strdup("");
+	easy_addp(result);
+	while (*str != '\0')
+	{
+		if (*str == '$')
+		{
+			++str;
+			temp = ft_strchr(str, '$');
+			if (temp == NULL)
+				temp = ft_strchr(str, ' ');
+			if (temp == NULL)
+				temp = ft_strchr(str, '\0');
+			temp2 = ft_substr(str, 0, temp - str);
+			easy_addp(temp2);
+			temp3 = (t_list *)g_context->variables;
+			while (temp3 != NULL)
+			{
+				if (ft_strncmp(((char **)temp3->content)[0], temp2, temp - str) == 0)
+				{
+					temp = ft_strjoin(result, ((char **)temp3->content)[1]);
+					easy_addp(temp);
+					free(result);
+					result = temp;
+					break;
+				}
+				temp3 = temp3->next;
+			}
+			str = temp;
+		}
+		else
+		{
+			//printf("error123\n");
+			temp = ft_strjoin(result, ft_substr(str, 0, 1));
+			easy_addp(temp);
+			//easy_fone(result);
+			free(result);
+			result = temp;
+			++str;
+		}
+	}
+	printf("%s\n", result);
+	return result;
+}
+
 t_command	*parse(char *cmd, char **envp)
 {
 	char		**parsed;
@@ -109,6 +160,7 @@ t_command	*parse(char *cmd, char **envp)
 	command = (t_command *)easy_alloc(sizeof(t_command));
 	if (is_variable(cmd))
 		return NULL;
+	cmd = replace_variable(cmd);
 	parsed = ft_split(cmd, ' ');
 	easy_addp(parsed);
 	path = get_path(envp);
@@ -122,3 +174,4 @@ t_command	*parse(char *cmd, char **envp)
 	command->fullcmd = parsed;
 	return (command);
 }
+
