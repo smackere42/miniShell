@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:14:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/19 22:47:52 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/20 00:43:08 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	easy_fall(void)
 void allocation_error(void)
 {
 	easy_fall();
-	write(2, "Error: allocation error", 15);
+	write(2, "Error: allocation error", 24);
 	exit(0);
 }
 
@@ -64,7 +64,7 @@ void	*easy_alloc(size_t size)
 }
 
 
-void	easy_addp(void *ptr)
+void	*easy_addp(void *ptr)
 {
 	t_pointers	*temp;
 	t_pointers	*pointers;
@@ -87,6 +87,7 @@ void	easy_addp(void *ptr)
 		temp->pointer = ptr;
 		pointers = temp;
 	}
+	return ptr;
 }
 
 void	easy_fone(void *ptr)

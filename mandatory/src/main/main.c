@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:09 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/12 01:59:57 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/19 23:29:21 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int argc, char **argv, char **envp)
 			exec_command(read, envp);
 			add_history(read);
 		}
-		ft_lstiter((t_list *)g_context->variables,print_loc_var);
+		//ft_lstiter((t_list *)g_context->variables,print_loc_var);
 		free(read);
 	}
 	return (0);

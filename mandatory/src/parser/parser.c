@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/19 22:50:53 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/20 00:35:41 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,8 @@ int	is_variable(char *command)
 	if (j == 0)
 		return 0;
 	variable = (char **) malloc(sizeof(char *) * 2);
-	variable[0] = ft_substr(command, 0, j);
-	easy_addp(variable[0]);
-	variable[1] = ft_substr(command, j+1, i);
-	easy_addp(variable[1]);
+	variable[0] = (char *) easy_addp(ft_substr(command, 0, j));
+	variable[1] = (char *) easy_addp(ft_substr(command, j+1, i));
 	if (g_context->variables == NULL)
 		g_context->variables = (struct t_list *) ft_lstnew(variable);
 	else
@@ -98,54 +96,45 @@ int	is_variable(char *command)
 	return 1;
 }
 
-char *replace_variable(char *str)
+char *replace_variable(char *left)
 {
 	char	*result;
-	char	*temp;
-	char	*temp2;
-	t_list	*temp3;
+	char	*right;
+	char	*temp_cmd;
+	t_list	*variables;
 
-	result = ft_strdup("");
-	easy_addp(result);
-	while (*str != '\0')
+	result = (char *) easy_addp(ft_strdup(""));
+	while (*left != '\0')
 	{
-		if (*str == '$')
+		if (*left == '$')
 		{
-			++str;
-			temp = ft_strchr(str, '$');
-			if (temp == NULL)
-				temp = ft_strchr(str, ' ');
-			if (temp == NULL)
-				temp = ft_strchr(str, '\0');
-			temp2 = ft_substr(str, 0, temp - str);
-			easy_addp(temp2);
-			temp3 = (t_list *)g_context->variables;
-			while (temp3 != NULL)
+			++left;
+			right = left;
+			while (*right != '\0' && *right != ' ' && *right != '\t' && *right != '\n' && *right != '$')
+				++right;
+			temp_cmd = (char *) easy_addp(ft_substr(left, 0, right - left));
+			left = right;
+			variables = (t_list *)g_context->variables;
+			while (variables != NULL)
 			{
-				if (ft_strncmp(((char **)temp3->content)[0], temp2, temp - str) == 0)
+				if (ft_strncmp(((char **)variables->content)[0], temp_cmd, ft_strlen(temp_cmd)) == 0)
 				{
-					temp = ft_strjoin(result, ((char **)temp3->content)[1]);
-					easy_addp(temp);
+					right = (char *) easy_addp(ft_strjoin(result, ((char **)variables->content)[1]));
 					free(result);
-					result = temp;
+					result = right;
 					break;
 				}
-				temp3 = temp3->next;
+				variables = variables->next;
 			}
-			str = temp;
 		}
 		else
 		{
-			//printf("error123\n");
-			temp = ft_strjoin(result, ft_substr(str, 0, 1));
-			easy_addp(temp);
-			//easy_fone(result);
+			right = (char *) easy_addp(ft_strjoin(result, ft_substr(left, 0, 1)));
 			free(result);
-			result = temp;
-			++str;
+			result = right;
+			++left;
 		}
 	}
-	printf("%s\n", result);
 	return result;
 }
 
@@ -161,12 +150,9 @@ t_command	*parse(char *cmd, char **envp)
 	if (is_variable(cmd))
 		return NULL;
 	cmd = replace_variable(cmd);
-	parsed = ft_split(cmd, ' ');
-	easy_addp(parsed);
-	path = get_path(envp);
-	easy_addp(path);
-	command->cmd = ft_strjoin("/", parsed[0]);
-	easy_addp(command->cmd);
+	parsed = (char **)easy_addp(ft_split(cmd, ' '));
+	path =(char **) easy_addp(get_path(envp));
+	command->cmd = (char *) easy_addp(ft_strjoin("/", parsed[0]));
 	command->cmd_path = find_cmd_in_path(path, command->cmd);
 	if (!command->cmd_path)
 		return (parse_errors(4, command));
