@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:25:53 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/11 23:55:51 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/19 23:46:54 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct	s_pointers
 void	*easy_alloc(size_t size);
 void	easy_fall(void);
 void	easy_fone(void *ptr);
-void	easy_addp(void *ptr);
+void	*easy_addp(void *ptr);
 
 
 
