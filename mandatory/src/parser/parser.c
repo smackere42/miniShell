@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/20 00:35:41 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/20 21:10:57 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ char *replace_variable(char *left)
 				if (ft_strncmp(((char **)variables->content)[0], temp_cmd, ft_strlen(temp_cmd)) == 0)
 				{
 					right = (char *) easy_addp(ft_strjoin(result, ((char **)variables->content)[1]));
+					//easy_fone(result);
 					free(result);
 					result = right;
 					break;
@@ -130,6 +131,7 @@ char *replace_variable(char *left)
 		else
 		{
 			right = (char *) easy_addp(ft_strjoin(result, ft_substr(left, 0, 1)));
+			//easy_fone(result);
 			free(result);
 			result = right;
 			++left;

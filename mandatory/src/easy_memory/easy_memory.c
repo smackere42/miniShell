@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:14:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/20 00:43:08 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/20 11:56:28 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,7 @@ void	easy_fone(void *ptr)
 		temp = temp->next;
 	}
 	if (temp->pointer == ptr)
-	{
 		free(temp->pointer);
-		previous->next = temp->next;
-	}
+	previous->next = temp->next;
+	free(temp);
 }
