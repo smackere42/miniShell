@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:09 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/19 23:29:21 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/23 01:52:28 by smackere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "main.h"
+#include "main.h"
 
 void	emulate_ctrl_c(int sig_num)
 {
 	(void) sig_num;
 	write(STDERR_FILENO, "\n", 2);
+	printf("%d\n", g_context->pid);
 	if (g_context->pid == 0)
 	{
 		rl_on_new_line();
@@ -30,7 +31,7 @@ size_t	ft_strlen(const char *s)
 
 	len = 0;
 	while (*s)
-	{ 
+	{
 		++s;
 		++len;
 	}
@@ -47,8 +48,10 @@ int	check_exit_eof(char *read)
 	return (0);
 }
 
-void print_loc_var(void *content){
+void	print_loc_var(void *content)
+{
 	char	**temp;
+
 	temp = (char **) content;
 	ft_putstr_fd(temp[0], 2);
 	ft_putstr_fd(" = ", 2);
@@ -62,15 +65,19 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	// for(int i = 0; envp[i]; i++)
+	// {
+	// 	printf("%s\n", envp[i]);
+	// }
 	g_context = (t_context *) malloc(sizeof(t_context));
 	g_context->pid = 0;
 	g_context->pointers = NULL;
 	g_context->variables = NULL;
 	signal(SIGQUIT, SIG_IGN);
+	printf("%d\n", g_context->pid);
 	signal(SIGINT, emulate_ctrl_c);
 	while (1)
 	{
-		
 		read = readline(PROMPT);
 		if (check_exit_eof(read))
 			break ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/20 21:10:57 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/23 01:35:13 by smackere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,52 +51,31 @@ static char	*find_cmd_in_path(char **path, char *cmd)
 
 int	is_variable(char *command)
 {
-	char**	variable;
-	char	sym;
-	int		i = 0;
-	int		j = 0;
+	char	**variable;
+	int		i;
+	int		j;
 	t_list	*temp;
 
-	while (command[i] != '\0')
-	{
-		sym = command[i];
-		if ((ft_isdigit(sym) || ft_isalpha(sym)) && j==0)
-			++i;
-		else if (sym == '=' && j==0)
-			j = i;
-		else if (sym == '\n' || sym == '\t' || sym == ' ')
-			return 0;
-		else
-			++i;
-	}
+	i = var_iteration(1, command);
+	j = var_iteration(2, command);
 	if (j == 0)
-		return 0;
+		return (0);
 	variable = (char **) malloc(sizeof(char *) * 2);
 	variable[0] = (char *) easy_addp(ft_substr(command, 0, j));
-	variable[1] = (char *) easy_addp(ft_substr(command, j+1, i));
+	variable[1] = (char *) easy_addp(ft_substr(command, j + 1, i));
 	if (g_context->variables == NULL)
 		g_context->variables = (struct t_list *) ft_lstnew(variable);
 	else
 	{
 		temp = (t_list *)g_context->variables;
-		while (temp != NULL)
-		{
-			if (ft_strncmp(((char **)temp->content)[0], variable[0], j-i) == 0)
-			{
-				free(((char **)temp->content)[0]);
-				free(((char **)temp->content)[1]);
-				free(temp->content);
-				temp->content =(struct t_list *) variable;
-				return 1;
-			}
-			temp = temp->next;
-		}
-		ft_lstadd_front((t_list **)&(g_context->variables), ft_lstnew(variable));
+		temp = list_iteration(temp, i, j, variable);
+		ft_lstadd_front((t_list **)&(g_context->variables),
+			ft_lstnew(variable));
 	}
-	return 1;
+	return (1);
 }
 
-char *replace_variable(char *left)
+char	*replace_variable(char *left)
 {
 	char	*result;
 	char	*right;
@@ -110,34 +89,22 @@ char *replace_variable(char *left)
 		{
 			++left;
 			right = left;
-			while (*right != '\0' && *right != ' ' && *right != '\t' && *right != '\n' && *right != '$')
-				++right;
+			right = string_move(right);
 			temp_cmd = (char *) easy_addp(ft_substr(left, 0, right - left));
 			left = right;
 			variables = (t_list *)g_context->variables;
-			while (variables != NULL)
-			{
-				if (ft_strncmp(((char **)variables->content)[0], temp_cmd, ft_strlen(temp_cmd)) == 0)
-				{
-					right = (char *) easy_addp(ft_strjoin(result, ((char **)variables->content)[1]));
-					//easy_fone(result);
-					free(result);
-					result = right;
-					break;
-				}
-				variables = variables->next;
-			}
+			result = var_replace_counter(variables, right, temp_cmd, result);
 		}
 		else
 		{
-			right = (char *) easy_addp(ft_strjoin(result, ft_substr(left, 0, 1)));
-			//easy_fone(result);
+			right = (char *) easy_addp(ft_strjoin(result,
+						ft_substr(left, 0, 1)));
 			free(result);
 			result = right;
 			++left;
 		}
 	}
-	return result;
+	return (result);
 }
 
 t_command	*parse(char *cmd, char **envp)
@@ -150,10 +117,10 @@ t_command	*parse(char *cmd, char **envp)
 		++cmd;
 	command = (t_command *)easy_alloc(sizeof(t_command));
 	if (is_variable(cmd))
-		return NULL;
+		return (NULL);
 	cmd = replace_variable(cmd);
 	parsed = (char **)easy_addp(ft_split(cmd, ' '));
-	path =(char **) easy_addp(get_path(envp));
+	path = (char **)easy_addp(get_path(envp));
 	command->cmd = (char *) easy_addp(ft_strjoin("/", parsed[0]));
 	command->cmd_path = find_cmd_in_path(path, command->cmd);
 	if (!command->cmd_path)
@@ -162,4 +129,3 @@ t_command	*parse(char *cmd, char **envp)
 	command->fullcmd = parsed;
 	return (command);
 }
-
