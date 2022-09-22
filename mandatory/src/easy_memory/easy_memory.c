@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   easy_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:14:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/20 11:56:28 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/22 04:16:57 by smackere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	easy_fall(void)
 {
-	t_pointers 	*temp;
+	t_pointers	*temp;
 	t_pointers	*pointers;
-	
-	pointers = g_context->pointers;
 
+	pointers = g_context->pointers;
 	while (pointers)
 	{
 		temp = pointers;
@@ -28,7 +27,7 @@ void	easy_fall(void)
 	}
 }
 
-void allocation_error(void)
+void	allocation_error(void)
 {
 	easy_fall();
 	write(2, "Error: allocation error", 24);
@@ -40,7 +39,7 @@ void	*easy_alloc(size_t size)
 	void		*ret;
 	t_pointers	*temp;
 	t_pointers	*pointers;
-	
+
 	pointers = g_context->pointers;
 	ret = (void *) malloc(size);
 	if (!ret)
@@ -54,21 +53,20 @@ void	*easy_alloc(size_t size)
 		pointers->pointer = ret;
 		pointers->next = NULL;
 	}
-	else 
+	else
 	{
 		temp->next = pointers;
 		temp->pointer = ret;
 		pointers = temp;
 	}
-	return ret;
+	return (ret);
 }
-
 
 void	*easy_addp(void *ptr)
 {
 	t_pointers	*temp;
 	t_pointers	*pointers;
-	
+
 	pointers = g_context->pointers;
 	if (!ptr)
 		allocation_error();
@@ -81,13 +79,13 @@ void	*easy_addp(void *ptr)
 		pointers->pointer = ptr;
 		pointers->next = NULL;
 	}
-	else 
+	else
 	{
 		temp->next = pointers;
 		temp->pointer = ptr;
 		pointers = temp;
 	}
-	return ptr;
+	return (ptr);
 }
 
 void	easy_fone(void *ptr)
@@ -95,7 +93,7 @@ void	easy_fone(void *ptr)
 	t_pointers	*temp;
 	t_pointers	*previous;
 	t_pointers	*pointers;
-	
+
 	pointers = g_context->pointers;
 	previous = pointers;
 	temp = pointers;
