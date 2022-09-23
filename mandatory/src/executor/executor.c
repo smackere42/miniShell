@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:16:01 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/12 00:17:40 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/23 02:34:03 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	exec_command(char *read, char **envp)
 {
 	int			pid;
-	int			status;
 	t_command	*cmd;
 
 	cmd = parse(read, envp);
@@ -29,6 +28,6 @@ int	exec_command(char *read, char **envp)
 	{
 		execve(cmd->cmd_path, cmd->args, NULL);
 	}
-	waitpid(pid, &status, 0);
+	waitpid(pid, &(g_context->last_exit_code), 0);
 	return (0);
 }

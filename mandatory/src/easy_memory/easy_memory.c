@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   easy_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:14:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/22 04:16:57 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/23 02:56:02 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	*easy_alloc(size_t size)
 	return (ret);
 }
 
-void	*easy_addp(void *ptr)
+void	*add_p(void *ptr)
 {
 	t_pointers	*temp;
 	t_pointers	*pointers;
@@ -88,7 +88,7 @@ void	*easy_addp(void *ptr)
 	return (ptr);
 }
 
-void	easy_fone(void *ptr)
+void	f_one(void *ptr)
 {
 	t_pointers	*temp;
 	t_pointers	*previous;
@@ -102,8 +102,10 @@ void	easy_fone(void *ptr)
 		previous = temp;
 		temp = temp->next;
 	}
-	if (temp->pointer == ptr)
+	if (temp && temp->pointer == ptr)
+	{
 		free(temp->pointer);
-	previous->next = temp->next;
-	free(temp);
+		previous->next = temp->next;
+		free(temp);
+	}
 }
