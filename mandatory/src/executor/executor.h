@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:15:57 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/11 23:52:39 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/28 23:37:55 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-int	exec_command(char *read, char **envp);
+int	exec_command(char *read);
 
 #endif

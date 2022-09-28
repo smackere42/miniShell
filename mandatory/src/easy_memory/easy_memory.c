@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:14:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/23 02:56:02 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/28 22:51:14 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 void	easy_fall(void)
 {
 	t_pointers	*temp;
-	t_pointers	*pointers;
 
-	pointers = g_context->pointers;
-	while (pointers)
+	while (g_context->pointers)
 	{
-		temp = pointers;
-		free(pointers->pointer);
-		pointers = pointers->next;
-		free(temp);
+		temp = g_context->pointers->next;
+		if (g_context->pointers->pointer)
+			free(g_context->pointers->pointer);
+		free(g_context->pointers);
+		g_context->pointers = temp;
 	}
 }
 
@@ -38,53 +37,38 @@ void	*easy_alloc(size_t size)
 {
 	void		*ret;
 	t_pointers	*temp;
-	t_pointers	*pointers;
-
-	pointers = g_context->pointers;
+	
 	ret = (void *) malloc(size);
 	if (!ret)
 		allocation_error();
 	temp = (t_pointers *) malloc(sizeof(t_pointers));
 	if (!temp)
 		allocation_error();
-	if (pointers == NULL)
-	{
-		pointers = temp;
-		pointers->pointer = ret;
-		pointers->next = NULL;
-	}
+	temp->pointer = ret;
+	if (g_context->pointers == NULL)
+		temp->next = NULL;
 	else
-	{
-		temp->next = pointers;
-		temp->pointer = ret;
-		pointers = temp;
-	}
+		temp->next = g_context->pointers;
+	g_context->pointers = temp;
 	return (ret);
 }
 
 void	*add_p(void *ptr)
 {
 	t_pointers	*temp;
-	t_pointers	*pointers;
 
-	pointers = g_context->pointers;
 	if (!ptr)
 		allocation_error();
 	temp = (t_pointers *) malloc(sizeof(t_pointers));
 	if (!temp)
 		allocation_error();
-	if (!pointers)
-	{
-		pointers = temp;
-		pointers->pointer = ptr;
-		pointers->next = NULL;
-	}
+	if (!g_context->pointers)
+		temp->next = NULL;
 	else
-	{
-		temp->next = pointers;
-		temp->pointer = ptr;
-		pointers = temp;
-	}
+		temp->next = g_context->pointers;
+	temp->pointer = ptr;
+	g_context->pointers = temp;
+	
 	return (ptr);
 }
 
@@ -92,11 +76,9 @@ void	f_one(void *ptr)
 {
 	t_pointers	*temp;
 	t_pointers	*previous;
-	t_pointers	*pointers;
-
-	pointers = g_context->pointers;
-	previous = pointers;
-	temp = pointers;
+	
+	previous = g_context->pointers;
+	temp = g_context->pointers;
 	while (temp && temp->pointer != ptr)
 	{
 		previous = temp;
@@ -105,7 +87,10 @@ void	f_one(void *ptr)
 	if (temp && temp->pointer == ptr)
 	{
 		free(temp->pointer);
-		previous->next = temp->next;
+		if (g_context->pointers == temp)
+			g_context->pointers = temp->next;
+		else
+			previous->next = temp->next;
 		free(temp);
 	}
 }
