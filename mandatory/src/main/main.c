@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:09 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/23 01:52:28 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/23 02:35:01 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	emulate_ctrl_c(int sig_num)
 {
 	(void) sig_num;
 	write(STDERR_FILENO, "\n", 2);
-	printf("%d\n", g_context->pid);
 	if (g_context->pid == 0)
 	{
 		rl_on_new_line();
@@ -65,12 +64,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	// for(int i = 0; envp[i]; i++)
-	// {
-	// 	printf("%s\n", envp[i]);
-	// }
 	g_context = (t_context *) malloc(sizeof(t_context));
 	g_context->pid = 0;
+	g_context->last_exit_code = 0;
 	g_context->pointers = NULL;
 	g_context->variables = NULL;
 	signal(SIGQUIT, SIG_IGN);
@@ -86,7 +82,6 @@ int	main(int argc, char **argv, char **envp)
 			exec_command(read, envp);
 			add_history(read);
 		}
-		//ft_lstiter((t_list *)g_context->variables,print_loc_var);
 		free(read);
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/21 17:07:45 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/23 02:32:44 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ typedef struct s_context
 	int					pid;
 	struct s_pointers	*pointers;
 	struct t_list		*variables;
+	int					last_exit_code;
 }	t_context;
 
 extern t_context	*g_context;
-t_context	*g_context;
+t_context			*g_context;
 
 #endif

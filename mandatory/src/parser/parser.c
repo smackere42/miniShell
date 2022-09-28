@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/23 01:35:13 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/23 04:19:38 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	is_variable(char *command)
 	if (j == 0)
 		return (0);
 	variable = (char **) malloc(sizeof(char *) * 2);
-	variable[0] = (char *) easy_addp(ft_substr(command, 0, j));
-	variable[1] = (char *) easy_addp(ft_substr(command, j + 1, i));
+	variable[0] = (char *) add_p(ft_substr(command, 0, j));
+	variable[1] = (char *) add_p(ft_substr(command, j + 1, i));
 	if (g_context->variables == NULL)
 		g_context->variables = (struct t_list *) ft_lstnew(variable);
 	else
@@ -75,33 +75,29 @@ int	is_variable(char *command)
 	return (1);
 }
 
-char	*replace_variable(char *left)
+char	*replace_variables(char *left)
 {
 	char	*result;
 	char	*right;
-	char	*temp_cmd;
-	t_list	*variables;
+	char	*postfix;
 
-	result = (char *) easy_addp(ft_strdup(""));
+	result = (char *) add_p(ft_strdup(""));
 	while (*left != '\0')
 	{
 		if (*left == '$')
 		{
-			++left;
-			right = left;
-			right = string_move(right);
-			temp_cmd = (char *) easy_addp(ft_substr(left, 0, right - left));
-			left = right;
-			variables = (t_list *)g_context->variables;
-			result = var_replace_counter(variables, right, temp_cmd, result);
+			postfix = get_postfix(&left);
+			result = replace_one(postfix, result);
+			f_one(postfix);
 		}
 		else
 		{
-			right = (char *) easy_addp(ft_strjoin(result,
-						ft_substr(left, 0, 1)));
-			free(result);
+			right = (char *) easy_alloc(ft_strlen(result) + 2);
+			right = ft_strcpy(right, result);
+			right[ft_strlen(result)] = *(left++);
+			right[ft_strlen(result) + 1] = '\0';
+			f_one(result);
 			result = right;
-			++left;
 		}
 	}
 	return (result);
@@ -118,10 +114,10 @@ t_command	*parse(char *cmd, char **envp)
 	command = (t_command *)easy_alloc(sizeof(t_command));
 	if (is_variable(cmd))
 		return (NULL);
-	cmd = replace_variable(cmd);
-	parsed = (char **)easy_addp(ft_split(cmd, ' '));
-	path = (char **)easy_addp(get_path(envp));
-	command->cmd = (char *) easy_addp(ft_strjoin("/", parsed[0]));
+	cmd = replace_variables(cmd);
+	parsed = (char **)add_p(ft_split(cmd, ' '));
+	path = (char **)add_p(get_path(envp));
+	command->cmd = (char *) add_p(ft_strjoin("/", parsed[0]));
 	command->cmd_path = find_cmd_in_path(path, command->cmd);
 	if (!command->cmd_path)
 		return (parse_errors(4, command));

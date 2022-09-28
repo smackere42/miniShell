@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   easy_memory.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smackere <smackere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:25:53 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/22 04:17:01 by smackere         ###   ########.fr       */
+/*   Updated: 2022/09/23 02:56:02 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,9 @@ typedef struct s_pointers
 	struct s_pointers	*next;
 }	t_pointers;
 
-extern t_pointers	*g_pointers;
-t_pointers	*g_pointers;
-
 void	*easy_alloc(size_t size);
 void	easy_fall(void);
-void	easy_fone(void *ptr);
-void	*easy_addp(void *ptr);
+void	f_one(void *ptr);
+void	*add_p(void *ptr);
 
 #endif

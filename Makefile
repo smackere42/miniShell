@@ -20,7 +20,10 @@ fclean:
 		@make -C ${LIBFT_DIR}/ fclean	
 		@make -C ${SRC_DIR}/ fclean
 		@${RM_FILE} $(NAME)
-		
+
+run:
+		@./minishell
+
 re:		fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus clean fclean re run
