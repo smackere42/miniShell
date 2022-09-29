@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   free_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/20 20:16:01 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/29 21:51:33 by kmumm            ###   ########.fr       */
+/*   Created: 2022/09/29 21:49:46 by kmumm             #+#    #+#             */
+/*   Updated: 2022/09/29 21:55:32 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "parser.h"
 
-int	exec_command(char *read)
+void    free_command(t_command *command)
 {
-	int			pid;
-	t_command	*cmd;
+    int j;
 
-	cmd = parse(read);
-	if (cmd == NULL)
-		return (0);
-	pid = fork();
-	g_context->pid = pid;
-	if (pid == -1)
-		exit(0);
-	if (pid == 0)
-	{
-		execve(cmd->cmd_path, cmd->fullcmd, NULL);
-	}
-	waitpid(pid, &(g_context->last_exit_code), 0);
-	free_command(cmd);
-	return (0);
+    f_one(command->cmd_exec);
+	f_one(command->fixed_cmd);
+	j = 0;
+	while (command->fullcmd[j])
+		free(command->fullcmd[j++]);
+	f_one(command->fullcmd);
+	f_one(command->cmd_path);
+	f_one(command);
 }

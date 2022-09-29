@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:22:41 by smackere          #+#    #+#             */
-/*   Updated: 2022/09/29 00:57:39 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/29 21:40:19 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ char	*handle_extra(char *postfix, char *res)
 	char	*buffer;
 
 	tmp_res = res;
-	printf("postfix = %s\n", postfix);
-	printf("char = %c\n", postfix[0]);
 	if (!postfix)
 		return (res);
 	if (postfix[0] == '?')
@@ -86,6 +84,8 @@ char	*handle_extra(char *postfix, char *res)
 		tmp_res = (char *) add_p(ft_strjoin(tmp_res, postfix));
 		f_one(buffer);
 	}
+	else
+		tmp_res = (char *) add_p(ft_strdup(res));	
 	f_one(res);
 	return (tmp_res);
 }
@@ -119,7 +119,6 @@ char	*get_postfix(char **left)
 	char	*postfix;
 	int		flag;
 
-	printf("left = %s\n", *left);
 	right = *left + 1;
 	flag = 1;
 	if (*right == '\0' || *right == ' ' || *right == '\t'
@@ -132,7 +131,6 @@ char	*get_postfix(char **left)
 		&& *right != '\n' && *right != '$')
 		++right;
 	postfix = (char *) add_p(ft_substr(*left + 1, 0, right - *left - 1));
-	printf("postfix: %s\n", postfix);
 	*left = right;
 	return (postfix);
 }

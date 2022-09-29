@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/29 00:57:32 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/29 21:33:16 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	**get_path(char **envp)
 {
 	char	**path;
 	int		i;
+	int		j;
 
 	path = ((void *)0);
 	i = -1;
@@ -23,7 +24,10 @@ char	**get_path(char **envp)
 	{
 		if (ft_strnstr(envp[i], "PATH=", 5))
 		{
-			path = ft_split(envp[i] + 5, ':');
+			path = (char **) add_p(ft_split(envp[i] + 5, ':'));
+			j = 0;
+			while (path[j])
+				add_p(path[j++]);
 			return (path);
 		}
 	}
@@ -99,7 +103,6 @@ char	*replace_variables(char *cmd)
 			result = right;
 		}
 	}
-	printf("result: %s\n", result);
 	return (result);
 }
 

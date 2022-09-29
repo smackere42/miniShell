@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:14:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/28 22:51:14 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/29 21:54:17 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,20 @@ void	easy_fall(void)
 	}
 }
 
-void	allocation_error(void)
+void	allocation_error(int i)
 {
-	easy_fall();
-	write(2, "Error: allocation error", 24);
-	exit(0);
+	if (i == 1)
+	{
+		easy_fall();
+		write(2, "easy_alloc error\n", 17);
+		exit(0);
+	}
+	if (i == 2)
+	{
+		easy_fall();
+		write(2, "add_p alloc error\n", 19);
+		exit(0);
+	}
 }
 
 void	*easy_alloc(size_t size)
@@ -40,10 +49,10 @@ void	*easy_alloc(size_t size)
 	
 	ret = (void *) malloc(size);
 	if (!ret)
-		allocation_error();
+		allocation_error(1);
 	temp = (t_pointers *) malloc(sizeof(t_pointers));
 	if (!temp)
-		allocation_error();
+		allocation_error(1);
 	temp->pointer = ret;
 	if (g_context->pointers == NULL)
 		temp->next = NULL;
@@ -58,10 +67,10 @@ void	*add_p(void *ptr)
 	t_pointers	*temp;
 
 	if (!ptr)
-		allocation_error();
+		allocation_error(2);
 	temp = (t_pointers *) malloc(sizeof(t_pointers));
 	if (!temp)
-		allocation_error();
+		allocation_error(2);
 	if (!g_context->pointers)
 		temp->next = NULL;
 	else

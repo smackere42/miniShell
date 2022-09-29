@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 23:21:46 by smackere          #+#    #+#             */
-/*   Updated: 2022/09/28 23:55:04 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/29 21:51:40 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ t_command	*parse_errors(int i, t_command *command)
 		ft_putstr_fd(tmp, 2);
 		ft_putstr_fd("\n", 2);
 	}
-	f_one(command->cmd_exec);
-	f_one(command->fullcmd);
-	f_one(command->cmd_path);
-	f_one(command);
+	free_command(command);
 	return (NULL);
 }
