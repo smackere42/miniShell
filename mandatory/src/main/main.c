@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:09 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/23 02:35:01 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/29 00:39:57 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,20 @@ void	print_loc_var(void *content)
 	ft_putstr_fd("\n", 2);
 }
 
+int		num_of_pointers()
+{
+	int i = 0;
+	t_pointers *temp;
+
+	temp = (t_pointers *) g_context->pointers;
+	while (temp)
+	{
+		i++;
+		temp = temp->next;
+	}
+	return (i);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*read;
@@ -69,8 +83,8 @@ int	main(int argc, char **argv, char **envp)
 	g_context->last_exit_code = 0;
 	g_context->pointers = NULL;
 	g_context->variables = NULL;
+	g_context->path = (char **)add_p(get_path(envp));
 	signal(SIGQUIT, SIG_IGN);
-	printf("%d\n", g_context->pid);
 	signal(SIGINT, emulate_ctrl_c);
 	while (1)
 	{
@@ -79,10 +93,16 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (ft_strlen(read) > 0)
 		{
-			exec_command(read, envp);
+			exec_command(read);
+			ft_lstiter((t_list *) g_context->variables, print_loc_var);
 			add_history(read);
 		}
 		free(read);
 	}
+	rl_clear_history();
+	printf("%d\n", num_of_pointers());
+	easy_fall();
+	printf("%d\n", num_of_pointers());
+	free(g_context);
 	return (0);
 }

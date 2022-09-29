@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/23 02:32:44 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/09/28 23:34:19 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_context
 	struct s_pointers	*pointers;
 	struct t_list		*variables;
 	int					last_exit_code;
+	char				**path;
 }	t_context;
 
 extern t_context	*g_context;
