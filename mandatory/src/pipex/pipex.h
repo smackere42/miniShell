@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/06 13:05:53 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/07 02:59:07 by kmumm            ###   ########.fr       */
+/*   Created: 2022/10/07 00:45:08 by kmumm             #+#    #+#             */
+/*   Updated: 2022/10/07 02:52:57 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PIPEX_H
+# define PIPEX_H
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+# include "../main/main.h"
+# include "../parser/parser.h"
+
+typedef struct s_command
 {
-	char	*tmp;
-
-	if (s == ((void *)0))
-		return ((void *)0);
-	if (start >= ft_strlen(s))
-		len = 0;
-	else
-		s += start;
-	len++;
-	tmp = (char *)malloc(len * sizeof(char));
-	if (!tmp)
-		return ((void *)0);
-	ft_strlcpy(tmp, s, len);
-	return (tmp);
-}
+	int					pid;
+	struct s_cmd_info	*cmd_info;
+	int					fd[2];
+	
+}	t_command;
+#endif

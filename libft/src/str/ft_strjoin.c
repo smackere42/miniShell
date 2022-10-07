@@ -6,13 +6,13 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 17:59:32 by kmumm             #+#    #+#             */
-/*   Updated: 2022/06/06 04:50:17 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/07 02:59:07 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*tmp;
 	size_t	len;

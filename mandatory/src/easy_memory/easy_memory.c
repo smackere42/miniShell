@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:14:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/29 21:54:17 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/07 01:59:45 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,17 @@ void	f_one(void *ptr)
 			previous->next = temp->next;
 		free(temp);
 	}
+}
+
+void	f_split(char **ptr)
+{
+	int i;
+
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	f_one(ptr);
 }

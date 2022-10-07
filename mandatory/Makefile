@@ -1,7 +1,9 @@
 NAME	= minishell
 DIRS	=	main \
+			context \
 			executor \
 			parser \
+			pipex \
 			easy_memory \
 
 LIBFT= ../libft/libft.a
@@ -16,8 +18,8 @@ H_FILES		=	$(foreach dir, $(C_DIRS), $(wildcard $(dir)/*.h))
 O_FILES		=	$(subst $(SRC_DIR), $(OBJ_DIR), $(C_FILES:.c=.o))
 H_FILES_INC = $(addprefix -I, $(H_FILES))
 
-CC = gcc
-FLAGS = -Wall -Werror -Wextra
+CC = clang
+FLAGS = -Wall -Werror -Wextra -g
 
 READLINE_LIB = -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib 
 READLINE_INC = -I /opt/homebrew/Cellar/readline/8.1.2/include 

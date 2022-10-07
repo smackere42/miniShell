@@ -6,13 +6,13 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 08:31:54 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/29 21:15:33 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/07 02:59:07 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_split_words(char const *s, char c)
+static int	ft_split_words(const char *s, char c)
 {
 	int	words;
 
@@ -30,7 +30,7 @@ static int	ft_split_words(char const *s, char c)
 	return (words);
 }
 
-static int	ft_split_word_len(char const *s, char c)
+static int	ft_split_word_len(const char *s, char c)
 {
 	int	j;
 
@@ -51,7 +51,17 @@ static void	*ft_split_free(char **tmp)
 	return ((void *)0);
 }
 
-char	**ft_split(char const *s, char c)
+int	ft_split_len(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	**ft_split(const char *s, char c)
 {
 	char	**tmp;	
 	int		words;

@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:22:41 by smackere          #+#    #+#             */
-/*   Updated: 2022/09/29 21:40:19 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/07 01:08:41 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ char	*handle_extra(char *postfix, char *res)
 				ft_strjoin(res, ft_itoa(g_context->last_exit_code)));
 		tmp_res = (char *) add_p(ft_strjoin(tmp_res, postfix + 1));
 	}
+	else if (postfix [0] == '_' && postfix[1] == '\0')
+		tmp_res = (char *) add_p(ft_strjoin(res, g_context->last_cmd_name));
 	else if (postfix[0] == '\0')
 		tmp_res = (char *) add_p(ft_strjoin(res, "$"));
 	else if (postfix[0] == '.')
