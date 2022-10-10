@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   free_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/06 13:05:53 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/07 02:59:07 by kmumm            ###   ########.fr       */
+/*   Created: 2022/09/29 21:49:46 by kmumm             #+#    #+#             */
+/*   Updated: 2022/10/07 02:05:40 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "parser.h"
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+void    free_command(t_cmd_info *command)
 {
-	char	*tmp;
-
-	if (s == ((void *)0))
-		return ((void *)0);
-	if (start >= ft_strlen(s))
-		len = 0;
-	else
-		s += start;
-	len++;
-	tmp = (char *)malloc(len * sizeof(char));
-	if (!tmp)
-		return ((void *)0);
-	ft_strlcpy(tmp, s, len);
-	return (tmp);
+    f_one(command->cmd_exec);
+	f_one(command->fixed_cmd);
+	f_split(command->fullcmd);
+	f_one(command->cmd_path);
+	f_one(command);
 }

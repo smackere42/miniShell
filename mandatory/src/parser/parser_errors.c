@@ -6,13 +6,13 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 23:21:46 by smackere          #+#    #+#             */
-/*   Updated: 2022/09/28 23:55:04 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/07 05:58:11 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_command	*parse_errors(int i, t_command *command)
+void *parse_errors(int i, t_cmd_info *command)
 {
 	char	*errors[5];
 	char	*tmp;
@@ -24,15 +24,13 @@ t_command	*parse_errors(int i, t_command *command)
 	errors[2] = "\033[31m no memmory allocated for paths\n \033[0m";
 	errors[3] = "\033[31m no memmory allocated for cmd\n \033[0m";
 	errors[4] = "\033[31m minishell: command not found: \033[0m";
+	g_context->last_exit_code = 127;
 	ft_putstr_fd(errors[i], 2);
 	if (i == 4)
 	{
 		ft_putstr_fd(tmp, 2);
 		ft_putstr_fd("\n", 2);
 	}
-	f_one(command->cmd_exec);
-	f_one(command->fullcmd);
-	f_one(command->cmd_path);
-	f_one(command);
+	free_command(command);
 	return (NULL);
 }

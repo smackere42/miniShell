@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/28 23:34:19 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/07 04:23:53 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 # include "../executor/executor.h"
 # include "../easy_memory/easy_memory.h"
+# include "../pipex/pipex.h"
+# include "../context/context.h"
 //# include "../easy_memory/easy_memory.h"
 
 typedef struct s_context
@@ -32,7 +34,9 @@ typedef struct s_context
 	struct s_pointers	*pointers;
 	struct t_list		*variables;
 	int					last_exit_code;
+	char				*last_cmd_name;
 	char				**path;
+	struct s_command	**commands;
 }	t_context;
 
 extern t_context	*g_context;

@@ -6,13 +6,13 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 01:05:45 by kmumm             #+#    #+#             */
-/*   Updated: 2022/06/13 17:54:34 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/07 02:59:07 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(const char *s1, const char *set)
 {
 	size_t	len;
 	char	*tmp;

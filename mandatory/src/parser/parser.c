@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/09/29 00:57:32 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/07 03:31:51 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ char	**get_path(char **envp)
 {
 	char	**path;
 	int		i;
-
+	
 	path = ((void *)0);
 	i = -1;
 	while (envp[++i])
 	{
 		if (ft_strnstr(envp[i], "PATH=", 5))
 		{
-			path = ft_split(envp[i] + 5, ':');
+			path = (char **) add_p(ft_split(envp[i] + 5, ':'));
 			return (path);
 		}
 	}
@@ -99,25 +99,25 @@ char	*replace_variables(char *cmd)
 			result = right;
 		}
 	}
-	printf("result: %s\n", result);
 	return (result);
 }
 
-t_command	*parse(char *cmd)
+t_cmd_info	*parse(char *cmd)
 {
-	t_command	*command;
+	t_cmd_info	*command;
 
 	while (*cmd == '\t' || *cmd == '\n' || *cmd == ' ')
 		++cmd;
 	if (is_variable(cmd))
 		return (NULL);
-	command = (t_command *)easy_alloc(sizeof(t_command));
+	command = (t_cmd_info *)easy_alloc(sizeof(t_cmd_info));
+	command->is_err = 0;
 	command->fixed_cmd = replace_variables(cmd);
 	command->fullcmd = (char **) add_p(ft_split(command->fixed_cmd, ' '));
 	command->cmd_exec = (char *) add_p(ft_strjoin("/", command->fullcmd[0]));
 	command->cmd_path = find_cmd_in_path(g_context->path, command->cmd_exec);
 	if (!command->cmd_path)
-		return (parse_errors(4, command));
+		command->is_err = 1;
 	else
 		add_p(command->cmd_path);
 	return (command);
