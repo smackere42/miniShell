@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:16:01 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/11 09:24:54 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/11 16:55:22 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ int	exec_command(char *read)
 			//printf("fd[1] - %d\n", g_context->commands[i]->to->fd);
 			redir(g_context->commands[i]);
 			if (g_context->commands[i]->cmd_info->is_err)
-			{
-				parse_errors(4, g_context->commands[i]->cmd_info);
-				exit(1);
-			}
+				pexit("command not found", g_context->commands[i]->cmd_info->cmd_exec + 1, 1);
 			execve(g_context->commands[i]->cmd_info->cmd_path, g_context->commands[i]->cmd_info->fullcmd, g_context->envp);
 		}
 		waitpid(g_context->commands[i]->pid, &g_context->last_exit_code, 0);

@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/11 08:33:59 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/11 17:02:42 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MAIN_H
 
 # define PROMPT "\033[1;32m➜ \033 \033[1;36mAHAHAC \033[1;33m✗ \033[0m\033[0m"
+# define ERROR_PROMPT "\033[1;31m➜ AHAHAC 🚫 \033[0m"
 
 # include <stdio.h>
 # include <signal.h>
@@ -26,7 +27,7 @@
 # include "../easy_memory/easy_memory.h"
 # include "../pipex/pipex.h"
 # include "../context/context.h"
-//# include "../easy_memory/easy_memory.h"
+# include "../../../libft/include/libft.h"
 
 typedef struct s_context
 {

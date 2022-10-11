@@ -1,41 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 00:45:08 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/11 16:29:58 by kmumm            ###   ########.fr       */
+/*   Created: 2022/10/11 16:29:07 by kmumm             #+#    #+#             */
+/*   Updated: 2022/10/11 16:36:50 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+# ifndef ERRORS_H
+# define ERRORS_H
 
 # include "../main/main.h"
-# include "../parser/parser.h"
-# include "../errors/errors.h"
 
-# define FD 0
-# define FILE 1
+void	pexit(char *str, char *cause, int flag);
 
-typedef struct s_redir
-{
-	int		type;
-	char	*file;
-	int		fd;
-}	t_redir;
-
-typedef struct s_command
-{
-	int					pid;
-	int					tube[2];
-	struct s_cmd_info	*cmd_info;
-	struct s_redir	*from;
-	struct s_redir	*to;
-}	t_command;
-
-void	redir(t_command *cmd);
-
-#endif
+# endif

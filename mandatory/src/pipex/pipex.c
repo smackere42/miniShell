@@ -6,53 +6,48 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 00:58:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/11 09:23:04 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/11 16:41:17 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "pipex.h"
 
+void	dup2_close(int oldfd, int newfd)
+{
+	if (dup2(oldfd, newfd) == -1)
+	{
+		perror("dup2");
+		exit(1);
+	}
+	close(oldfd);
+}
 
 void	redir(t_command *cmd)
 {
 	if (cmd->from->type == FD)
 	{
 		if (cmd->from->fd != 0)
-		{
-			dup2(cmd->from->fd, 0);
-			close(cmd->from->fd);
-		}
+			dup2_close(cmd->from->fd, 0);
 	}
 	else if (cmd->from->type == FILE)
 	{
 		int fd = open(cmd->from->file, O_RDONLY);
 		if (fd == -1)
-		{
-			printf("minishell: %s: No such file or directory\n", cmd->from->file);
-			exit(1);
-		}
-		dup2(fd, 0);
-		close(fd);
+			pexit("No such file or directory", cmd->from->file, 1);
+		dup2_close(fd, 0);
 	}
 	if (cmd->to->type == FD)
 	{
 		if (cmd->to->fd != 1)
-		{
-			dup2(cmd->to->fd, 1);
-			close(cmd->to->fd);
-		}
+			dup2_close(cmd->to->fd, 1);
 	}
 	else if (cmd->to->type == FILE)
 	{
 		int fd = open(cmd->to->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
-		{
-			printf("minishell: %s: No such file or directory\n", cmd->to->file);
-			exit(1);
-		}
-		dup2(fd, 1);
-		close(fd);
+			pexit("No such file or directory", cmd->from->file, 1);
+		dup2_close(fd, 1);
 	}
 }
 

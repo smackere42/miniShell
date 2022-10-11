@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 19:50:49 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/07 04:30:10 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/11 17:09:30 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			check_repeat(char **variable);
 char		*replace_one(char *postfix, char *res);
 char		*get_postfix(char **left);
 char		**get_path(char **envp);
-void		free_command(t_cmd_info *command);
+void		f_cmd_info(t_cmd_info *command);
 int			parse_pipes(char *read);
 
 #endif
