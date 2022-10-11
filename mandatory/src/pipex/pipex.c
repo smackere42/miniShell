@@ -6,12 +6,59 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 00:58:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/07 01:54:34 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/11 08:04:09 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "pipex.h"
+
+
+void	redir(t_command *cmd)
+{
+	if (cmd->from->type == FD)
+	{
+		if (cmd->from->fd != 0)
+		{
+			printf("dup2 %d 0\n", cmd->from->fd);
+			close(cmd->to->fd);
+			dup2(cmd->from->fd, 0);
+			close(cmd->from->fd);
+		}
+	}
+	else if (cmd->from->type == FILE)
+	{
+		int fd = open(cmd->from->file, O_RDONLY);
+		if (fd == -1)
+		{
+			printf("minishell: %s: No such file or directory\n", cmd->from->file);
+			exit(1);
+		}
+		dup2(fd, 0);
+		close(fd);
+	}
+	if (cmd->to->type == FD)
+	{
+		if (cmd->to->fd != 1)
+		{
+			printf("dup2 %d 1\n", cmd->to->fd);
+			close(cmd->from->fd);
+			dup2(cmd->to->fd, 1);
+			close(cmd->to->fd);
+		}
+	}
+	else if (cmd->to->type == FILE)
+	{
+		int fd = open(cmd->to->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd == -1)
+		{
+			printf("minishell: %s: No such file or directory\n", cmd->to->file);
+			exit(1);
+		}
+		dup2(fd, 1);
+		close(fd);
+	}
+}
 
 //void	set_last_status(t_shell *shell, t_cmd *child, int wstat)
 //{
