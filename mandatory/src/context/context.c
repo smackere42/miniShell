@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 04:22:00 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/10 23:49:53 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/11 08:34:11 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void get_variables(char **envp)
 void init_context(char **envp)
 {
 	g_context = (t_context *) malloc(sizeof(t_context));
+	g_context->envp = envp;
 	g_context->pid = 0;
 	g_context->last_exit_code = 0;
 	g_context->pointers = NULL;

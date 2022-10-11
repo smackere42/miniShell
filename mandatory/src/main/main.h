@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/11 08:20:10 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/11 08:33:59 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 typedef struct s_context
 {
 	int					pid;
+	char				**envp;
 	struct s_pointers	*pointers;
 	struct t_list		*variables;
 	int					last_exit_code;

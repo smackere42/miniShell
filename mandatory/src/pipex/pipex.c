@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 00:58:23 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/11 08:04:09 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/11 09:23:04 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	redir(t_command *cmd)
 	{
 		if (cmd->from->fd != 0)
 		{
-			printf("dup2 %d 0\n", cmd->from->fd);
-			close(cmd->to->fd);
 			dup2(cmd->from->fd, 0);
 			close(cmd->from->fd);
 		}
@@ -41,8 +39,6 @@ void	redir(t_command *cmd)
 	{
 		if (cmd->to->fd != 1)
 		{
-			printf("dup2 %d 1\n", cmd->to->fd);
-			close(cmd->from->fd);
 			dup2(cmd->to->fd, 1);
 			close(cmd->to->fd);
 		}
