@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:22:41 by smackere          #+#    #+#             */
-/*   Updated: 2022/10/07 01:08:41 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/13 22:13:21 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ int	var_iteration(int flag, char *command)
 
 int	check_repeat(char **variable)
 {
-	t_list *temp;
+	t_list	*temp;
 
-	temp = (t_list *) g_context->variables;
+	temp = (t_list *) g_con->variables;
 	while (temp != NULL)
 	{
 		if (ft_strncmp(((char **)temp->content)[0], variable[0],
-				ft_strlen(((char **)temp->content)[0])) == 0)
+			ft_strlen(((char **)temp->content)[0])) == 0)
 		{
 			f_one(((char **)temp->content)[0]);
 			f_one(((char **)temp->content)[1]);
@@ -72,11 +72,11 @@ char	*handle_extra(char *postfix, char *res)
 	if (postfix[0] == '?')
 	{
 		tmp_res = (char *) add_p(
-				ft_strjoin(res, ft_itoa(g_context->last_exit_code)));
+				ft_strjoin(res, ft_itoa(g_con->last_exit_code)));
 		tmp_res = (char *) add_p(ft_strjoin(tmp_res, postfix + 1));
 	}
 	else if (postfix [0] == '_' && postfix[1] == '\0')
-		tmp_res = (char *) add_p(ft_strjoin(res, g_context->last_cmd_name));
+		tmp_res = (char *) add_p(ft_strjoin(res, g_con->last_cmd_name));
 	else if (postfix[0] == '\0')
 		tmp_res = (char *) add_p(ft_strjoin(res, "$"));
 	else if (postfix[0] == '.')
@@ -87,7 +87,7 @@ char	*handle_extra(char *postfix, char *res)
 		f_one(buffer);
 	}
 	else
-		tmp_res = (char *) add_p(ft_strdup(res));	
+		tmp_res = (char *) add_p(ft_strdup(res));
 	f_one(res);
 	return (tmp_res);
 }
@@ -97,7 +97,7 @@ char	*replace_one(char *postfix, char *res)
 	t_list	*variables;
 	char	*tmp_res;
 
-	variables = (t_list *)g_context->variables;
+	variables = (t_list *)g_con->variables;
 	tmp_res = res;
 	while (variables != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:09 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/07 04:24:41 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/13 22:18:15 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	emulate_ctrl_c(int sig_num)
 {
 	(void) sig_num;
 	write(STDERR_FILENO, "\n", 2);
-	if (g_context->pid == 0)
+	if (g_con->pid == 0)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -41,7 +41,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	
 	init_context(envp);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, emulate_ctrl_c);
@@ -58,6 +57,5 @@ int	main(int argc, char **argv, char **envp)
 		free(read);
 	}
 	rl_clear_history();
-	easy_fall();
 	return (0);
 }

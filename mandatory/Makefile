@@ -2,6 +2,7 @@ NAME	= minishell
 DIRS	=	main \
 			context \
 			executor \
+			errors \
 			parser \
 			pipex \
 			easy_memory \
