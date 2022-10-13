@@ -12,9 +12,9 @@
 
 #include "parser.h"
 
-void    f_cmd_info(t_cmd_info *command)
+void	f_cmd_info(t_cmd_info *command)
 {
-    f_one(command->cmd_exec);
+	f_one(command->cmd_exec);
 	f_one(command->fixed_cmd);
 	f_split(command->fullcmd);
 	f_one(command->cmd_path);

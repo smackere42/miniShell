@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 23:23:07 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/11 17:02:42 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/13 22:15:35 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ typedef struct s_context
 	int					last_exit_code;
 	char				*last_cmd_name;
 	char				**path;
-	struct s_command	**commands;
+	struct s_command	**coms;
 }	t_context;
 
-extern t_context	*g_context;
-t_context			*g_context;
+extern t_context	*g_con;
+t_context			*g_con;
 
 #endif

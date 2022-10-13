@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 00:45:08 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/11 16:29:58 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/13 22:02:26 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct s_command
 	int					pid;
 	int					tube[2];
 	struct s_cmd_info	*cmd_info;
-	struct s_redir	*from;
-	struct s_redir	*to;
+	struct s_redir		*from;
+	struct s_redir		*to;
 }	t_command;
 
 void	redir(t_command *cmd);

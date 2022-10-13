@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 02:25:53 by kmumm             #+#    #+#             */
-/*   Updated: 2022/10/07 06:11:07 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/13 22:11:31 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../../../libft/include/libft.h"
 # include "../main/main.h"
+# include "../errors/errors.h"
 # include <unistd.h>
 
 typedef struct s_pointers
