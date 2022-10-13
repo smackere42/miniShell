@@ -6,7 +6,7 @@
 /*   By: kmumm <kmumm@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:22:41 by smackere          #+#    #+#             */
-/*   Updated: 2022/10/13 22:13:21 by kmumm            ###   ########.fr       */
+/*   Updated: 2022/10/13 22:25:08 by kmumm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int	check_repeat(char **variable)
 		if (ft_strncmp(((char **)temp->content)[0], variable[0],
 			ft_strlen(((char **)temp->content)[0])) == 0)
 		{
-			f_one(((char **)temp->content)[0]);
-			f_one(((char **)temp->content)[1]);
-			f_one(temp->content);
+			free(((char **)temp->content)[0]);
+			free(((char **)temp->content)[1]);
+			free(temp->content);
 			temp->content = variable;
 			return (0);
 		}
